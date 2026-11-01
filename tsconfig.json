@@ -1,0 +1,29 @@
+{
+  // 构建脚本的类型配置。
+  //
+  // ⚠️ 这个文件**只影响编辑器和 `tsc --noEmit`**，不影响运行 ——
+  //    `node scripts/xxx.ts` 走的是 Node 原生类型擦除，根本不读 tsconfig。
+  //
+  // 类型检查需要 `@types/node`（devDependency）。它**不是运行时依赖**：
+  // 删掉 node_modules 后脚本照样跑，只是编辑器会报「找不到 node:fs」。
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+    "lib": ["es2023"],
+    "types": ["node"],
+
+    // Node 的类型擦除要求相对 import 带 .ts 后缀，所以要开这个
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "skipLibCheck": true,
+
+    "strict": true,
+    "noUncheckedIndexedAccess": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules"]
+}

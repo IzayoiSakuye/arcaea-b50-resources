@@ -1,0 +1,6 @@
+data/*
+!data/song-id-aliases.json
+.cache/
+dist/
+node_modules/
+*.tsbuildinfo

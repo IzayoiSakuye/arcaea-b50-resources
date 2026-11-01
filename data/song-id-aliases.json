@@ -1,0 +1,51 @@
+{
+  "_readme": [
+    "人工 song_id 映射表：title_norm（曲名归一化）→ 官方 song_id。",
+    "",
+    "为什么需要它：索引里的 song_id 是从曲名推导的（deriveSongId），",
+    "但官方 ID 存在大量无法自动推导的命名改写：",
+    "  Aleph-0               → alephzero       数字写成单词",
+    "  Alone & Lorn          → aloneandlorn    & 写成 and",
+    "  Ashen 6oundary        → ashenboundary   标题里 6 是风格化的 b",
+    "  CHAIN2NITE            → chaintonite     2 写成 to",
+    "  FANTA5Y               → fantasy         5 写成 s",
+    "  LIVHT MY WΔY          → lightmyway      leet / 希腊字母",
+    "",
+    "生成方式：node scripts/build-catalog.mjs --suggest-aliases",
+    "  会写入 _suggestions（带下划线前缀，加载时被忽略），人工核对后挪进 map。",
+    "",
+    "⚠️ 不要盲目自动套用建议 —— 给一首曲配上别人的曲绘，比缺图糟糕得多。"
+  ],
+  "map": {
+    "aleph-0": "alephzero",
+    "alone & lorn": "aloneandlorn",
+    "and revive the melody": "andrevivemelody",
+    "ashen 6oundary": "ashenboundary",
+    "chain2nite": "chaintonite",
+    "don't fight the music": "dontfightmusic",
+    "end of the moonlight": "endmoonlight",
+    "fanta5y": "fantasy",
+    "incomplete the one": "incompleteone",
+    "livht my wδy": "lightmyway",
+    "megalovania (camellia remix)": "megalovaniarmx",
+    "riot in the system": "riotsystem",
+    "spirit of the dauntless": "spiritdauntless",
+    "straight into the lights": "straightintolights"
+  },
+  "_pending": [
+    {
+      "title": "Snow Shite",
+      "derived": "snowshite",
+      "suggested": "aishite",
+      "score": 0.571,
+      "note": "置信度低 —— 日文名与英文名无字面关系，需人工确认后再挪进 map"
+    },
+    {
+      "title": "HIVEMIND INTERLINKED",
+      "derived": "hivemindinterlinked",
+      "suggested": "hivemindrmx",
+      "score": 0.5,
+      "note": "边界值，需确认是否为同一谱面"
+    }
+  ]
+}

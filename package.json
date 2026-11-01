@@ -1,0 +1,12 @@
+{
+  "type": "module",
+  "private": true,
+  "//": "构建脚本。运行时零依赖 —— Node 原生类型擦除直接跑 .ts。下面的 devDependencies 只服务于编辑器和 tsc，不进运行链路（删掉 node_modules 脚本照样跑）。",
+  "scripts": {
+    "check": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^26.6.2",
+    "typescript": "^5.6.0"
+  }
+}
