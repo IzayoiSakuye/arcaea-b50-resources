@@ -18,7 +18,7 @@ node scripts/build-release.ts --version 2026.11.01
 
 脚本会刷新数据、生成资源包并校验。 PTT 参考节点会自动校验；理论最高值随曲库变化，只报告数值，需要独立基准时手动运行 `node scripts/check-ptt-formula.ts --expect <数值>`。完成后，文件位于 `dist/`：
 
-- `arcaea-data-<版本>.zip`：资源包
+- `data-<版本>.zip`：资源包
 - `latest.json`：版本和文件清单
 
 如果只想用已有的 `data/` 重新打包：
@@ -27,4 +27,4 @@ node scripts/build-release.ts --version 2026.11.01
 node scripts/build-release.ts --version 2026.11.01 --pack-only
 ```
 
-发布时，在 GitHub Releases 创建标签 `data-<版本>` 的正式 Release，上传上述两个文件。
+发布时，在 GitHub Releases 创建正式 Release。版本号仍用 `YYYY.MM.DD`；标签中的日期去掉日的前导零，例如 `data-2026.11.1`，ZIP 名为 `data-2026.11.01.zip`。上传 ZIP 和 `latest.json`。

@@ -40,7 +40,8 @@ if (!args.includes('--pack-only')) {
   run(process.execPath, ['scripts/report-arcaea-index.ts']);
   run(process.execPath, ['scripts/check-ptt-formula.ts']);
 }
-const tag = `data-${version}`;
+const [year, month, day, revision] = version.split('.');
+const tag = `data-${year}.${month}.${Number(day)}${revision ? `.${revision}` : ''}`;
 const baseUrl = `https://github.com/${repo}/releases/download/${tag}`;
 run(process.execPath, ['scripts/pack-data.ts', '--version', version, '--base-url', baseUrl]);
 

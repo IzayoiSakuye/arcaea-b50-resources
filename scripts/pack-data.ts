@@ -141,7 +141,7 @@ async function main() {
     zip.add(`data/jackets/256/${f.name}`, await fs.readFile(f.abs));
   }
   for (const [name, content] of backgroundFiles) zip.add(name, content);
-  const zipName = `arcaea-data-${version}.zip`;
+  const zipName = `data-${version}.zip`;
   const zipPath = path.join(CFG.outDir, zipName);
   const zipBytes = await zip.writeTo(zipPath);
   log(`  归档    ${zipName}  ${mb(zipBytes)}  (${zip.count} 个条目)`);
