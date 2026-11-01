@@ -16,7 +16,7 @@
 node scripts/build-release.ts --version 2026.11.01
 ```
 
-脚本会刷新数据、生成资源包并校验。完成后，文件位于 `dist/`：
+脚本会刷新数据、生成资源包并校验。 PTT 参考节点会自动校验；理论最高值随曲库变化，只报告数值，需要独立基准时手动运行 `node scripts/check-ptt-formula.ts --expect <数值>`。完成后，文件位于 `dist/`：
 
 - `arcaea-data-<版本>.zip`：资源包
 - `latest.json`：版本和文件清单

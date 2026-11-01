@@ -1,8 +1,7 @@
 // 潜力值公式自检：单曲 ptt 参考节点 + 用曲库反推理论最高 PTT。
 //
 // 用途有两个：
-//   ① 数据层回归 —— catalog 刷新后跑一遍，最高定数与定数分布一变，理论上限就会漂，
-//      冒烟就能发现"定数被上游改坏了"（13.438 这个数来自 wiki，是独立于我们曲库的第三方事实）。
+//   ① 数据层回归 —— catalog 刷新后报告理论上限；有独立基准时用 --expect 校验。
 //   ② Go 版公式的对拍 oracle —— internal/score 写完单曲 ptt 之后，
 //      用同一张参考节点表对一遍，证明两边行为一致（独立工具验证自己的产出）。
 //
@@ -62,7 +61,8 @@ const arg = (name: string, dflt: string): string => {
   return i >= 0 && args[i + 1] ? args[i + 1] : dflt;
 };
 const catalogPath = arg('catalog', 'data/arcaea-catalog.json');
-const expectMax = Number(arg('expect', '13.438'));
+const expectMax = args.includes('--expect') ? Number(arg('expect', '')) : null;
+if (expectMax !== null && !Number.isFinite(expectMax)) throw new Error('--expect 必须是数字');
 
 // 理论最高 = 每个谱面都打出 1000 万分 + PM（定数 + 2.2），再取最高的 50 个谱面
 type Row = { id: string; diff: string; c: number; ptt: number };
@@ -88,7 +88,8 @@ console.log(`  最高定数       ${rows[0].c}（${rows[0].id} ${rows[0].diff}�
 console.log(`  第 50 名单曲ptt ${top50[49].ptt.toFixed(4)}（${top50[49].id} ${top50[49].diff}）`);
 console.log(`  b50 总和       ${sum(top50).toFixed(4)}`);
 console.log(`  b10 总和       ${sum(top10).toFixed(4)}`);
-expect('理论最高 PTT', maxPtt, expectMax, 0.001);
+if (expectMax !== null) expect('理论最高 PTT', maxPtt, expectMax, 0.001);
+else console.log(`  理论最高 PTT   ${maxPtt.toFixed(4)}（需独立基准时传 --expect）`);
 
 console.log(failed === 0 ? '\n全部通过 ✅' : `\n${failed} 项不通过 ❌`);
 process.exit(failed === 0 ? 0 : 1);

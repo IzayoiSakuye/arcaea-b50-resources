@@ -325,6 +325,7 @@ export async function anubisFetch(url: string, opts: AnubisFetchOptions = {}): P
         Cookie: jar ? jar.header() : '', // ← 带上验证 cookie
       },
       timeout,
+      maxRedirects: 0,
     });
     if (jar) jar.absorb(passRes);
     await jar?.save();
